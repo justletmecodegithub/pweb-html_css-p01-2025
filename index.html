@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tony Stark - Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-dark">
+  <div class="bg-layer"></div>
+  <div class="bg-glow"></div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">Stark<span class="accent">Industries</span></div>
+
+      <input id="nav-toggle" type="checkbox" class="nav-toggle" />
+      <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+
+      <nav class="nav-links">
+        <a href="#explore">Gallery</a>
+        <a href="#works">Projects</a>
+        <a href="cv.html" class="btn btn-accent">View CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-left">
+        <h1>Welcome to <span class="accent">Tony Stark's</span> Lab</h1>
+        <p class="lead">Genius. Billionaire. Playboy. Philanthropist. Explore Stark’s greatest inventions and projects that changed the world.</p>
+        <div class="hero-ctas">
+          <a href="#works" class="btn">See Projects</a>
+          <a href="cv.html" class="btn btn-outline">View CV</a>
+        </div>
+
+        <dl class="stats">
+          <div><dt>Suits Built</dt><dd>85+</dd></div>
+          <div><dt>Years of Genius</dt><dd>30+</dd></div>
+          <div><dt>Innovation</dt><dd>100%</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-right">
+        <div class="card-stack">
+          <figure class="card card-main">
+            <img src="assets/project1.jpeg" alt="Iron Man Suit" />
+            <figcaption><h4>Iron Man Suit</h4><p>Mark III Armor</p></figcaption>
+          </figure>
+          <figure class="card card-side card-left">
+            <img src="assets/project2.jpeg" alt="Arc Reactor" />
+          </figure>
+          <figure class="card card-side card-right">
+            <img src="assets/project3.jpeg" alt="Stark Tower" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="explore" class="container explore">
+      <h2>Explore <span class="accent">Inventions</span></h2>
+      <div class="grid cards">
+        <article class="work-card">
+          <div class="thumb"><img src="assets/project1.jpeg" alt="Iron Man Suit"></div>
+          <h3>Iron Man Suit</h3>
+          <p class="meta">Mark III, Nanotech Armor</p>
+          <a class="btn-card" href="#">Details</a>
+        </article>
+        <article class="work-card">
+          <div class="thumb"><img src="assets/project2.jpeg" alt="Arc Reactor"></div>
+          <h3>Arc Reactor</h3>
+          <p class="meta">Clean Energy Core</p>
+          <a class="btn-card" href="#">Details</a>
+        </article>
+        <article class="work-card">
+          <div class="thumb"><img src="assets/project3.jpeg" alt="Stark Tower"></div>
+          <h3>Stark Tower</h3>
+          <p class="meta">HQ of Avengers</p>
+          <a class="btn-card" href="#">Details</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="works" class="container works">
+      <h2>Latest <span class="accent">Projects</span></h2>
+      <div class="works-grid">
+        <div class="big-work"><img src="assets/project1.jpeg" alt=""></div>
+        <div class="small-work"><img src="assets/project2.jpeg" alt=""></div>
+        <div class="small-work"><img src="assets/project3.jpeg" alt=""></div>
+      </div>
+    </section>
+
+    <section class="container contact-cta">
+      <h3>Want to Collaborate with Stark?</h3>
+      <a href="cv.html" class="btn btn-accent">Download CV</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 Stark Industries</div>
+  </footer>
+</body>
+</html>
