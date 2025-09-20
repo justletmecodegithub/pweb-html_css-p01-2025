@@ -1,6 +1,6 @@
 # pweb-html_css-p01-2025
-| Fruit | Color | Quantity |
-| :---- | :---: | --------: |
-| Apple | Red   | 10        |
-| Banana | Yellow | 15        |
-| Orange | Orange | 8         |
+| Nama | NRP |
+| :---- | :---: |
+| Muhammad Ahsani Taqwiim Rakhman | 5027241099   |
+| Andi Naufal Zaki | 5027241059 |
+| Salsa Bil Ulla | 5027241052 |
