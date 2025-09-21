@@ -1,104 +1,674 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tony Stark - Portfolio</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stark Industries - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: linear-gradient(135deg, #0a0a0a 0%, #1a001a 100%);
+            --card-bg: linear-gradient(135deg, rgba(20, 0, 20, 0.8) 0%, rgba(60, 0, 40, 0.8) 100%);
+            --accent: #ff2fa6;
+            --accent-glow: 0 0 10px rgba(255, 47, 166, 0.7);
+            --muted: #e0b3d4;
+            --glass: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body.theme-dark {
+            background: var(--bg);
+            color: #eee;
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 48px 28px;
+        }
+
+        /* Header & Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .brand {
+            font-weight: 700;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .brand .accent {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: transparent;
+            color: #ddd;
+            text-decoration: none;
+            border: 1px solid rgba(255, 47, 166, 0.2);
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: rgba(255, 47, 166, 0.1);
+        }
+
+        .btn-accent {
+            background: linear-gradient(90deg, var(--accent), #ff2f86);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            box-shadow: var(--accent-glow);
+        }
+
+        .btn-accent:hover {
+            background: linear-gradient(90deg, #ff2f86, var(--accent));
+            box-shadow: 0 0 15px rgba(255, 47, 166, 0.9);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            min-height: 80vh;
+        }
+
+        .hero-left {
+            flex: 1;
+            max-width: 52%;
+        }
+
+        .hero-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 420px;
+        }
+
+        h1 {
+            font-size: 56px;
+            line-height: 1.02;
+            margin: 0 0 18px;
+            color: #fff;
+        }
+
+        h1 .accent {
+            color: var(--accent);
+            text-shadow: var(--accent-glow);
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        h2 .accent {
+            color: var(--accent);
+            text-shadow: var(--accent-glow);
+        }
+
+        p.lead {
+            color: var(--muted);
+            max-width: 44ch;
+            font-size: 18px;
+            margin-bottom: 24px;
+        }
+
+        .hero-ctas {
+            margin: 18px 0;
+            display: flex;
+            gap: 12px;
+        }
+
+        dl.stats {
+            display: flex;
+            gap: 18px;
+            margin-top: 24px;
+            color: var(--muted);
+        }
+
+        dl.stats dt {
+            font-size: 12px;
+        }
+
+        dl.stats dd {
+            font-weight: 700;
+            margin: 6px 0 0;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        /* Card Slider */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            height: 420px;
+            margin: 0 auto;
+        }
+
+        .card-slider {
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), var(--accent-glow);
+            height: 100%;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 16px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(60, 0, 40, 0.6) 50%, rgba(40, 0, 30, 0.9) 100%);
+            color: #fff;
+        }
+
+        .slide h4 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--accent);
+        }
+
+        .slide p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: -48px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 50;
+        }
+
+        .ctrl-btn {
+            background: rgba(255, 47, 166, 0.2);
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(255, 47, 166, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(255, 47, 166, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Flip Cards */
+        .flip-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 36px;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            height: 280px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 47, 166, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flip-card-front i {
+            font-size: 48px;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .flip-card-back {
+            background: var(--card-bg);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border: 1px solid rgba(255, 47, 166, 0.3);
+            box-shadow: 0 0 15px rgba(255, 47, 166, 0.3);
+        }
+
+        .flip-card-back h3 {
+            margin: 0 0 16px;
+            color: var(--accent);
+        }
+
+        .flip-card-back p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 36px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 47, 166, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 47, 166, 0.4);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            margin: 0 0 12px;
+            color: var(--accent);
+        }
+
+        .project-content p {
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        /* Contact CTA */
+        .contact-cta {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border-radius: 18px;
+            margin-top: 60px;
+            border: 1px solid rgba(255, 47, 166, 0.15);
+        }
+
+        .contact-cta h3 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--muted);
+            border-top: 1px solid rgba(255, 47, 166, 0.1);
+            margin-top: 60px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-left {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .hero-right {
+                order: -1;
+                margin-bottom: 40px;
+                width: 100%;
+            }
+
+            .slider-container {
+                max-width: 100%;
+                height: 350px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .slider-container {
+                height: 300px;
+            }
+
+            .flip-cards, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body class="theme-dark">
-  <div class="bg-layer"></div>
-  <div class="bg-glow"></div>
-
-  <header class="site-header">
-    <div class="container nav">
-      <div class="brand">Stark<span class="accent">Industries</span></div>
-
-      <input id="nav-toggle" type="checkbox" class="nav-toggle" />
-      <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-
-      <nav class="nav-links">
-        <a href="#explore">Gallery</a>
-        <a href="#works">Projects</a>
-        <a href="cv.html" class="btn btn-accent">View CV</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero container" id="home">
-      <div class="hero-left">
-        <h1>Welcome to <span class="accent">Tony Stark's</span> Lab</h1>
-        <p class="lead">Genius. Billionaire. Playboy. Philanthropist. Explore Stark’s greatest inventions and projects that changed the world.</p>
-        <div class="hero-ctas">
-          <a href="#works" class="btn">See Projects</a>
-          <a href="cv.html" class="btn btn-outline">View CV</a>
+    <header class="site-header">
+        <div class="container nav">
+            <div class="brand">Myistri<span class="accent">Industries</span></div>
+            <nav class="nav-links">
+                <a href="#explore">Projects</a>
+                <a href="#works">Gallery</a>
+                 <a href="#contact" class="btn btn-accent">Contact</a>
+            </nav>
         </div>
+    </header>
 
-        <dl class="stats">
-          <div><dt>Suits Built</dt><dd>85+</dd></div>
-          <div><dt>Years of Genius</dt><dd>30+</dd></div>
-          <div><dt>Innovation</dt><dd>100%</dd></div>
-        </dl>
-      </div>
+    <main>
+        <section class="hero container" id="home">
+            <div class="hero-left">
+                <h1>Welcome to <span class="accent">zee's</span>Webpage</h1>
+                <p class="lead">Idol. Model. Musician. Actor. Explore zee's projects through her career.</p>
+                <div class="hero-ctas">
+                    <a href="#works" class="btn">See Projects</a>
+                    <a href="cv.html" class="btn btn-accent">View CV</a>
+                </div>
+                <dl class="stats">
+                    <div><dt>Project Involved</dt><dd>85+</dd></div>
+                    <div><dt>Years of Career</dt><dd>10+</dd></div>
+                    <div><dt>Followers Across Platform</dt><dd>4M+</dd></div>
+                </dl>
+            </div>
+            <div class="hero-right">
+                <div class="slider-container">
+                    <div class="card-slider">
+                        <figure class="slide">
+                            <img src="assets/profile1.jpg" alt="zee pink cantik bet">
+                            <figcaption>
+                                <h4>IDOL</h4>
+                            </figcaption>
+                        </figure>
+                        <figure class="slide">
+                            <img src="assets/profile2.jpg" alt="zee jkt 🥵">
+                            <figcaption>
+                                <h4>MUSICIAN</h4>
+                            </figcaption>
+                        </figure>
+                        <figure class="slide">
+                            <img src="assets/profile3.webp" alt="zee jaket hitam 😎">
+                            <figcaption>
+                                <h4>ACTOR</h4>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="ctrl-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="ctrl-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <div class="hero-right">
-        <div class="card-stack">
-          <figure class="card card-main">
-            <img src="assets/project1.jpeg" alt="Iron Man Suit" />
-            <figcaption><h4>Iron Man Suit</h4><p>Mark III Armor</p></figcaption>
-          </figure>
-          <figure class="card card-side card-left">
-            <img src="assets/project2.jpeg" alt="Arc Reactor" />
-          </figure>
-          <figure class="card card-side card-right">
-            <img src="assets/project3.jpeg" alt="Stark Tower" />
-          </figure>
-        </div>
-      </div>
-    </section>
+        <section id="explore" class="container explore">
+            <h2>Explore <span class="accent">Recent Project</span></h2>
+            <div class="flip-cards">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-robot"></i>
+                            <h3>Ambassador Milkis</h3>
+                            <p>Click to learn more</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <img src="assets/project1.png" alt="milkis">
+                            <figcaption>Milkis</figcaption>
+                            <a href="#" class="btn btn-accent">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Ancika</h3>
+                            <p>Click to learn more</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <img src="assets/project2.webp" alt="ya">
+                            <figcaption>Ancika</figcaption>
+                            <a href="#" class="btn btn-accent">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <i class="fas fa-microchip"></i>
+                            <h3>JKT</h3>
+                            <p>Click to learn more</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <img src="assets/project3.jpeg" alt="jkt">
+                            <figcaption>Magic Hour</figcaption>
+                            <a href="#" class="btn btn-accent">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="explore" class="container explore">
-      <h2>Explore <span class="accent">Inventions</span></h2>
-      <div class="grid cards">
-        <article class="work-card">
-          <div class="thumb"><img src="assets/project1.jpeg" alt="Iron Man Suit"></div>
-          <h3>Iron Man Suit</h3>
-          <p class="meta">Mark III, Nanotech Armor</p>
-          <a class="btn-card" href="#">Details</a>
-        </article>
-        <article class="work-card">
-          <div class="thumb"><img src="assets/project2.jpeg" alt="Arc Reactor"></div>
-          <h3>Arc Reactor</h3>
-          <p class="meta">Clean Energy Core</p>
-          <a class="btn-card" href="#">Details</a>
-        </article>
-        <article class="work-card">
-          <div class="thumb"><img src="assets/project3.jpeg" alt="Stark Tower"></div>
-          <h3>Stark Tower</h3>
-          <p class="meta">HQ of Avengers</p>
-          <a class="btn-card" href="#">Details</a>
-        </article>
-      </div>
-    </section>
+        <section id="works" class="container works">
+            <h2>Recent <span class="accent">Venture Gallery</span></h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <img src="assets/explore1.png" alt="Energy Project">
+                    <div class="project-content">
+                        <h3>Ndaki</h3>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <img src="assets/explore2.png" alt="Robotics Project">
+                    <div class="project-content">
+                        <h3>Upacara Ambek Windah</h3>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <img src="assets/explore3.png" alt="AI Project">
+                    <div class="project-content">
+                        <h3>Mancing</h3>
+                        <a href="#" class="btn">View Project</a>
+                    </div>
+                </article>
+            </div>
+        </section>
 
-    <section id="works" class="container works">
-      <h2>Latest <span class="accent">Projects</span></h2>
-      <div class="works-grid">
-        <div class="big-work"><img src="assets/project1.jpeg" alt=""></div>
-        <div class="small-work"><img src="assets/project2.jpeg" alt=""></div>
-        <div class="small-work"><img src="assets/project3.jpeg" alt=""></div>
-      </div>
-    </section>
+        <section id="contact" class="container contact-cta">
+            <h3>Want to Collaborate with Zee?</h3>
+            <p>Get in touch to discuss potential projects</p>
+            <a href="#contact" class="btn btn-accent">Contact Now</a>
+        </section>
+    </main>
 
-    <section class="container contact-cta">
-      <h3>Want to Collaborate with Stark?</h3>
-      <a href="cv.html" class="btn btn-accent">Download CV</a>
-    </section>
-  </main>
+    <footer class="site-footer">
+        <div class="container">© 2025 MyistriIndustries. All rights reserved.</div>
+    </footer>
 
-  <footer class="site-footer">
-    <div class="container">© 2025 Stark Industries</div>
-  </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.card-slider');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentSlide = 0;
+            
+            // Function to show slide
+            function showSlide(index) {
+                if (index < 0) {
+                    currentSlide = slides.length - 1;
+                } else if (index >= slides.length) {
+                    currentSlide = 0;
+                } else {
+                    currentSlide = index;
+                }
+                
+                slider.scrollTo({
+                    left: currentSlide * slider.offsetWidth,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Event listeners for buttons
+            prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+            nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+            
+            // Auto-slide every 5 seconds
+            setInterval(() => showSlide(currentSlide + 1), 5000);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+                if (e.key === 'ArrowRight') showSlide(currentSlide + 1);
+            });
+        });
+    </script>
 </body>
 </html>
